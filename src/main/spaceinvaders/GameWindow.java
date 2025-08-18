@@ -1,41 +1,43 @@
 package spaceinvaders;
 
-public final class GameWindow {
-    private GameWindow() {}
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.animation.AnimationTimer;
 
-    //Dimensões da tela
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 600;
+public class GameWindow extends Application {
 
-    public static final String GAME_TITLE = "Space Invaders";
+    private Pane root;
+    private Scene scene;
 
-    //Configs do jogador
-    public static final double PLAYER_SPEED = 15; // px/s
-    public static final double PLAYER_COOLDOWN = 0.28; // s
-    public static final int INITIAL_LIVES = 3;
-    public static final int PLAYER_WIDTH = 40;
-    public static final int PLAYER_HEIGHT = 20;
+    @Override
+    public void start(Stage primaryStage) {
+        root = new Pane();
+        scene = new Scene(root, GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
 
-    //Configs dos projéteis
-    public static final double PROJECTILE_SPEED = -480; // px/s (jogador)
-    public static final double ENEMY_PROJECTILE_SPEED = 220; // px/s
-    public static final int PROJECTILE_WIDTH = 5;
-    public static final int PROJECTILE_HEIGHT = 15;
+        scene.setOnKeyPressed(event -> {
+            // Lógica para capturar teclas, vou colocar a lógica da movimentação aqui
+        });
 
-    //Configs dos inimigos
-    public static final int ENEMY_WIDTH = 32;
-    public static final int ENEMY_HEIGHT = 20;
-    public static final double ENEMY_SPEED = 60; // px/s (módulo)
-    public static final int ENEMY_STEP_DOWN = 18; // px ao bater na borda
-    
-    //Outras configs
-    public static final int GRID_COLUMNS = 3;
-    public static final int GRID_ROWS = 2;
-    public static final int GRID_H_SPACING = 18;
-    public static final int GRID_V_SPACING = 18;
-    public static final int GRID_MARGIN_TOP = 60;
-    public static final int FRAME_DELAY = 16; // ~60 FPS
-    public static final int SCORE_PER_ENEMY = 30;
-    public static final int INITIAL_SCORE = 0;
+        primaryStage.setTitle(GameConfig.GAME_TITLE);
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
 
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                // Aqui vai ser a lógica de atualização do jogo
+            }
+        }.start();
+    }
+
+    public Pane getRoot() {
+        return root;
+    }
+
+    public Scene getScene() {
+        return scene;
+    }
 }
