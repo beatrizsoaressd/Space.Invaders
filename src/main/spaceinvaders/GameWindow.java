@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.animation.AnimationTimer;
+import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,13 @@ public class GameWindow extends Application {
             if (event.getCode() == KeyCode.LEFT) {
                 movingLeft = false;
             }
+            if (event.getCode() == KeyCode.A) {
+                movingLeft = false;
+            }
             if (event.getCode() == KeyCode.RIGHT) {
+                movingRight = false;
+            }
+            if (event.getCode() == KeyCode.D) {
                 movingRight = false;
             }
         });
