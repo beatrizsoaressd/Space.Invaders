@@ -6,15 +6,31 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.animation.AnimationTimer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameWindow extends Application {
 
     private Pane root;
     private Scene scene;
 
+    private Player player;
+    private Enemy enemy;
+    private List<Bullet> bullets = new ArrayList<>();
+
+    private boolean movingLeft = false;
+    private boolean movingRight = false;
+
     @Override
     public void start(Stage primaryStage) {
         root = new Pane();
         scene = new Scene(root, GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
+
+        player = new Player(200, 550);
+        enemy = new Enemy(100, 100);
+
+        root.getChildren().add(player.getSprite());
+        root.getChildren().add(enemy.getSprite());
 
         scene.setOnKeyPressed(event -> {
             // Lógica para capturar teclas, vou colocar a lógica da movimentação aqui
