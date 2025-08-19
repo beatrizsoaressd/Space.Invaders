@@ -33,7 +33,32 @@ public class GameWindow extends Application {
         root.getChildren().add(enemy.getSprite());
 
         scene.setOnKeyPressed(event -> {
-            // Lógica para capturar teclas, vou colocar a lógica da movimentação aqui
+            if (event.getCode() == KeyCode.LEFT) {
+                movingLeft = true;
+            }
+            if (event.getCode() == KeyCode.A) {
+                movingLeft = true;
+            }
+            if (event.getCode() == KeyCode.RIGHT) {
+                movingRight = true;
+            }
+            if (event.getCode() == KeyCode.D) {
+                movingRight = true;
+            }
+            // O player pode se movimentar usando as setinhas ou A/D
+            if (event.getCode() == KeyCode.SPACE) {
+                Bullet bullet = player.shoot();
+                bullets.add(bullet);
+                root.getChildren().add(bullet.getSprite());
+            }
+        });
+        scene.setOnKeyReleased(event -> {
+            if (event.getCode() == KeyCode.LEFT) {
+                movingLeft = false;
+            }
+            if (event.getCode() == KeyCode.RIGHT) {
+                movingRight = false;
+            }
         });
 
         primaryStage.setTitle(GameConfig.GAME_TITLE);
@@ -44,9 +69,23 @@ public class GameWindow extends Application {
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                // Aqui vai ser a lógica de atualização do jogo
+                update();
             }
         }.start();
+    }
+    private void update() {
+        if (movingLeft) player.moveLeft();
+        if (movingRight) player.moveRight();
+
+        for (Bullet b : bullets) {
+            b.update();
+        }
+
+        enemy.move();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
     public Pane getRoot() {
