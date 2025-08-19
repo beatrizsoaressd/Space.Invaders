@@ -2,6 +2,7 @@ package spaceinvaders;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import spaceinvaders.GameConfig;
 
 import java.awt.*;
 
@@ -17,17 +18,25 @@ public class Player {
 
     public Rectangle getSprite(){
         return sprite;
+        
     }
 
     public void moveLeft(){
-        sprite.setTranslateX(sprite.getTranslateX() - speed);
+        if (sprite.getTranslateX() > 0) {
+            sprite.setTranslateX(sprite.getTranslateX() - speed);
+        }
     }
 
     public void moveRight() {
-        sprite.setTranslateX(sprite.getTranslateX() + speed);
+        double windowWidth = GameConfig.WINDOW_WIDTH;
+        double playerWidth = sprite.getWidth();
+
+        if (sprite.getTranslateX() < windowWidth - playerWidth) {
+            sprite.setTranslateX(sprite.getTranslateX() + speed);
+        }
     }
 
-    public Bullet shoot(){
+    public Bullet shoot() {
         return new Bullet(sprite.getTranslateX() + 18, sprite.getTranslateY() - 10, -7);
     }
 }
