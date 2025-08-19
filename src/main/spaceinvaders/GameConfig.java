@@ -6,7 +6,7 @@ public class GameConfig {
     public static final int WINDOW_WIDTH = 800;
     public static final int WINDOW_HEIGHT = 600;
 
-    public static final String GAME_TITLE = "Space Invaders";
+    public static final String GAME_TITLE = "Space Invaders Simplificado - Ana Beatriz & Vanessa Santos";
 
     //Configs do jogador
     public static final double PLAYER_SPEED = 15; // px/s
