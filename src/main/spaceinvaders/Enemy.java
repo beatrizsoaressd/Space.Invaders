@@ -25,4 +25,14 @@ public class Enemy {
         speed *= -1;
         sprite.setTranslateY(sprite.getTranslateY() + 20);
     }
+
+    public double getWidth() {
+        return sprite.getWidth();
+    }
+    public double getX() {
+        return sprite.getTranslateX();
+    }
+    public double getY() {
+        return sprite.getTranslateY();
+    }
 }

@@ -16,7 +16,7 @@ public class GameWindow extends Application {
     private Scene scene;
 
     private Player player;
-    private Enemy enemy;
+    private EnemyManager enemyManager;
     private List<Bullet> bullets = new ArrayList<>();
 
     private boolean movingLeft = false;
@@ -28,10 +28,9 @@ public class GameWindow extends Application {
         scene = new Scene(root, GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
 
         player = new Player(200, 550);
-        enemy = new Enemy(100, 100);
+        enemyManager = new EnemyManager(root);
 
         root.getChildren().add(player.getSprite());
-        root.getChildren().add(enemy.getSprite());
 
         scene.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.LEFT) {
@@ -88,7 +87,7 @@ public class GameWindow extends Application {
             b.update();
         }
 
-        enemy.move();
+        enemyManager.update(GameConfig.WINDOW_WIDTH);
     }
 
     public static void main(String[] args) {
