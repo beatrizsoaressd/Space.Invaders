@@ -22,6 +22,9 @@ public class GameWindow extends Application {
     private boolean movingLeft = false;
     private boolean movingRight = false;
 
+    private long lastShotTime = 0;
+    private long shootCooldown = 300_000_000;
+
     @Override
     public void start(Stage primaryStage) {
         root = new Pane();
@@ -47,9 +50,13 @@ public class GameWindow extends Application {
             }
             // O player pode se movimentar usando as setinhas ou A/D
             if (event.getCode() == KeyCode.SPACE) {
-                Bullet bullet = player.shoot();
-                bullets.add(bullet);
-                root.getChildren().add(bullet.getSprite());
+                long now = System.nanoTime();
+                if (now - lastShotTime >= shootCooldown) {
+                    Bullet bullet = player.shoot();
+                    bullets.add(bullet);
+                    root.getChildren().add(bullet.getSprite());
+                    lastShotTime = now;
+                }
             }
         });
         scene.setOnKeyReleased(event -> {
@@ -83,8 +90,26 @@ public class GameWindow extends Application {
         if (movingLeft) player.moveLeft();
         if (movingRight) player.moveRight();
 
+        List<Bullet> bulletsToRemove = new ArrayList<>();
+        List<Enemy> enemiesToRemove = new ArrayList<>();
+
         for (Bullet b : bullets) {
             b.update();
+            for (Enemy e : enemyManager.getEnemies()) {
+                if (b.getSprite().getBoundsInParent().intersects(
+                        e.getSprite().getBoundsInParent())) {
+                    bulletsToRemove.add(b);
+                    enemiesToRemove.add(e);
+                }
+            }
+        }
+        for (Bullet b : bulletsToRemove) {
+            root.getChildren().remove(b.getSprite());
+            bullets.remove(b);
+        }
+        for (Enemy e : enemiesToRemove) {
+            root.getChildren().remove(e.getSprite());
+            enemyManager.getEnemies().remove(e);
         }
 
         enemyManager.update(GameConfig.WINDOW_WIDTH);
