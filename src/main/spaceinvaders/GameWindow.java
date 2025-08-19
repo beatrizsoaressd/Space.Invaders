@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,8 @@ public class GameWindow extends Application {
     public void start(Stage primaryStage) {
         root = new Pane();
         scene = new Scene(root, GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
+
+        scene.setFill(Color.BLACK);
 
         player = new Player(200, 550);
         enemyManager = new EnemyManager(root);
