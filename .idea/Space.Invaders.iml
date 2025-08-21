@@ -8,7 +8,7 @@
     </content>
     <orderEntry type="jdk" jdkName="24 (2)" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="javafx.base" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
