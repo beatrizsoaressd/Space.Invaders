@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +32,12 @@ public class GameWindow extends Application {
     public void start(Stage primaryStage) {
         root = new Pane();
         scene = new Scene(root, GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
+        Image backgroundImage = new Image(getClass().getResourceAsStream("/assets/stars_black_background.png"));
+        ImageView backgroundView = new ImageView(backgroundImage);
 
-        scene.setFill(Color.BLACK);
+        backgroundView.setFitWidth(GameConfig.WINDOW_WIDTH);
+        backgroundView.setFitHeight(GameConfig.WINDOW_HEIGHT);
+        root.getChildren().add(backgroundView);
 
         player = new Player(200, 550);
         enemyManager = new EnemyManager(root);
