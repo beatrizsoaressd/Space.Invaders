@@ -1,22 +1,27 @@
 package spaceinvaders;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import spaceinvaders.GameConfig;
 
-import java.awt.*;
 
 public class Player {
-    private Rectangle sprite;
+    private ImageView sprite;
     private double speed = 5;
 
     public Player(double x, double y){
-        sprite = new Rectangle(40, 20, Color.BLUE);
+        Image image = new Image(getClass().getResourceAsStream("/assets/Nave_player_amarela.png"));
+        sprite = new ImageView(image);
+
+        // Para ajustar tamanho
+        sprite.setFitWidth(60);
+        sprite.setFitHeight(60);
+
         sprite.setTranslateX(x);
         sprite.setTranslateY(y);
     }
 
-    public Rectangle getSprite(){
+    public ImageView getSprite(){
         return sprite;
         
     }
@@ -29,7 +34,7 @@ public class Player {
 
     public void moveRight() {
         double windowWidth = GameConfig.WINDOW_WIDTH;
-        double playerWidth = sprite.getWidth();
+        double playerWidth = sprite.getFitWidth();
 
         if (sprite.getTranslateX() < windowWidth - playerWidth) {
             sprite.setTranslateX(sprite.getTranslateX() + speed);
