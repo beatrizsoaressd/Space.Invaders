@@ -16,7 +16,10 @@ public class EnemyManager {
     private void createEnemies() {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 8; col++) {
-                Enemy enemy = new Enemy(80 + col * 50, 80 + row * 40);
+                double x = 80 + col * 50;
+                double y = 80 + row * 40;
+
+                Enemy enemy = new Enemy(x, y, col % 5, row);
                 enemies.add(enemy);
                 root.getChildren().add(enemy.getSprite());
             }
