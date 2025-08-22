@@ -14,26 +14,33 @@ public class Enemy {
     private static final Image spriteSheet = new Image(Enemy.class.getResourceAsStream("/assets/inimigos_aliens_36x36.png"));
     private int row;
     private int col;
-    public Enemy(double x, double y, int col, int row) {
+    public Enemy(double x, double y, int initialCol, int row) {
         this.row = row;
-        this.col = col;
+        this.col = initialCol;
 
         sprite = new ImageView(spriteSheet);
+        updateViewport();
 
-        sprite.setViewport(new Rectangle2D(
-                col * SPRITE_WIDTH,
-                row * SPRITE_HEIGHT,
-                SPRITE_WIDTH,
-                SPRITE_HEIGHT
-        ));
         sprite.setTranslateX(x);
         sprite.setTranslateY(y);
 
-        //redimensiona os inimigos
         sprite.setFitWidth(30);
         sprite.setFitHeight(30);
-    }
+        sprite.setPreserveRatio(true);
 
+    }
+private void updateViewport() {
+    sprite.setViewport(new Rectangle2D(
+            col * SPRITE_WIDTH,
+            row * SPRITE_HEIGHT,
+            SPRITE_WIDTH,
+            SPRITE_HEIGHT
+    ));
+}
+public void nextFrame() {
+        col = (col == 0) ? 1 : 0;
+        updateViewport();
+}
     public ImageView getSprite() {
         return sprite;
     }

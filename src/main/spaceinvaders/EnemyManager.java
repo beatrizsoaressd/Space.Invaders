@@ -1,16 +1,22 @@
 package spaceinvaders;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import javafx.scene.layout.Pane;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class EnemyManager {
     private List<Enemy> enemies = new ArrayList<>();
     private Pane root;
+    private Timeline animation;
 
     public EnemyManager(Pane root) {
         this.root = root;
         createEnemies();
+        startAnimation();
     }
 
     private void createEnemies() {
@@ -19,13 +25,26 @@ public class EnemyManager {
                 double x = 80 + col * 50;
                 double y = 80 + row * 40;
 
-                Enemy enemy = new Enemy(x, y, col % 5, row);
+                int spriteCol = 0;
+                int spriteRow = row;
+
+                Enemy enemy = new Enemy(x, y, spriteCol, spriteRow);
                 enemies.add(enemy);
                 root.getChildren().add(enemy.getSprite());
             }
         }
     }
 
+    private void startAnimation() {
+        // Alterna o frame de todos os inimigos a cada 500ms
+        animation = new Timeline(new KeyFrame(Duration.millis(500), e -> {
+            for (Enemy enemy : enemies) {
+                enemy.nextFrame();
+            }
+        }));
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.play();
+    }
     public void update(double windowWidth) {
         boolean reverse = false;
 
@@ -44,6 +63,7 @@ public class EnemyManager {
     }
 
     public List<Enemy> getEnemies() {
+
         return enemies;
     }
 }
