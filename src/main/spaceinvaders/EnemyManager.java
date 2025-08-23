@@ -36,7 +36,7 @@ public class EnemyManager {
     }
 
     private void startAnimation() {
-        // Alterna o frame de todos os inimigos a cada 500ms
+        // Alterna o frame de todos os inimigos a cada 150ms
         animation = new Timeline(new KeyFrame(Duration.millis(150), e -> {
             for (Enemy enemy : enemies) {
                 enemy.nextFrame();
