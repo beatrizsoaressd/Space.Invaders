@@ -11,12 +11,18 @@ public class Enemy {
     //Tamanho de cada quadradinho do sprite
     private static final int SPRITE_WIDTH = 36;
     private static final int SPRITE_HEIGHT = 36;
-    private static final Image spriteSheet = new Image(Enemy.class.getResourceAsStream("/assets/inimigos_aliens_36x36.png"));
+    private static final Image spriteSheet = new Image(Enemy.class.getResourceAsStream("/assets/blue_alien_black_36x36.png"));
+
     private int row;
     private int col;
+    private int numFrames;
+
     public Enemy(double x, double y, int initialCol, int row) {
         this.row = row;
         this.col = initialCol;
+
+        // calcula quantos frames cabem horizontalmente
+        numFrames = (int)(spriteSheet.getWidth() / SPRITE_WIDTH);
 
         sprite = new ImageView(spriteSheet);
         updateViewport();
@@ -24,8 +30,8 @@ public class Enemy {
         sprite.setTranslateX(x);
         sprite.setTranslateY(y);
 
-        sprite.setFitWidth(30);
-        sprite.setFitHeight(30);
+        sprite.setFitWidth(40);
+        sprite.setFitHeight(35);
         sprite.setPreserveRatio(true);
 
     }
@@ -38,7 +44,7 @@ private void updateViewport() {
     ));
 }
 public void nextFrame() {
-        col = (col == 0) ? 1 : 0;
+        col = (col + 1) % numFrames;
         updateViewport();
 }
     public ImageView getSprite() {
