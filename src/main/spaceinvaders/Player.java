@@ -42,6 +42,14 @@ public class Player {
     }
 
     public Bullet shoot() {
-        return new Bullet(sprite.getTranslateX() + 18, sprite.getTranslateY() - 10, -7);
+        // centraliza o tiro no meio da nave
+        double bx = sprite.getTranslateX() + sprite.getFitWidth()/2 - Bullet.DRAW_WIDTH/2;
+        double by = sprite.getTranslateY() - 8;
+
+        // para escolher o sprite do projétil (col,row) da spritesheet
+        // Ex.: um laser fino azul no topo pode ser (1,0). (para a gente se guiar depois)
+        int projectileCol = 1;
+        int projectileRow = 0;
+        return new Bullet(bx, by, -8, projectileCol, projectileRow);
     }
 }
