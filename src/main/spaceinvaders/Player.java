@@ -7,15 +7,15 @@ import spaceinvaders.GameConfig;
 
 public class Player {
     private ImageView sprite;
-    private double speed = 5;
+    private double speed = 4;
 
     public Player(double x, double y){
-        Image image = new Image(getClass().getResourceAsStream("/assets/Nave_player_amarela.png"));
+        Image image = new Image(getClass().getResourceAsStream("/assets/nave_azul.png"));
         sprite = new ImageView(image);
 
         // Para ajustar tamanho
-        sprite.setFitWidth(60);
-        sprite.setFitHeight(60);
+        sprite.setFitWidth(50);
+        sprite.setFitHeight(50);
 
         sprite.setTranslateX(x);
         sprite.setTranslateY(y);
