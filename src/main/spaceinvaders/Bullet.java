@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 public class Bullet {
     private ImageView sprite;
     private double speed;
+    private static final double BULLET_SPEED = 2.0;
 
     public static final int SPRITE_WIDTH = 16;
     public static final int SPRITE_HEIGHT = 16;
@@ -19,7 +20,7 @@ public class Bullet {
     private final int row;
 
     public Bullet(double x, double y, double speed, int col, int row) {
-        this.speed = speed;
+        this.speed = BULLET_SPEED;
         this.col = col;
         this.row = row;
 
@@ -44,7 +45,7 @@ public class Bullet {
 
     public void update() {
 
-        sprite.setTranslateY(sprite.getTranslateY() + speed);
+        sprite.setTranslateY(sprite.getTranslateY() - speed);
     }
 }
 

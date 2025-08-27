@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 
 public class Enemy {
     private ImageView sprite;
-    private double speed = 2;
+    private double speed = 0.6;
 
     //Tamanho de cada quadradinho do sprite
     private static final int SPRITE_WIDTH = 36;

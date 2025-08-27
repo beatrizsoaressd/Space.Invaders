@@ -7,7 +7,7 @@ import spaceinvaders.GameConfig;
 
 public class Player {
     private ImageView sprite;
-    private double speed = 4;
+    private double speed = 2;
 
     public Player(double x, double y){
         Image image = new Image(getClass().getResourceAsStream("/assets/nave_azul.png"));
