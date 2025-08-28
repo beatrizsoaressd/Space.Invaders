@@ -9,6 +9,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,8 @@ public class GameWindow extends Application {
 
     private long lastShotTime = 0;
     private long shootCooldown = 300_000_000;
+
+    private AnimationTimer gameLoop;
 
     @Override
     public void start(Stage primaryStage) {
@@ -88,12 +92,13 @@ public class GameWindow extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
 
-        new AnimationTimer() {
+        gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 update();
             }
-        }.start();
+        };
+        gameLoop.start();
     }
     private void update() {
         if (movingLeft) player.moveLeft();
@@ -120,8 +125,28 @@ public class GameWindow extends Application {
             root.getChildren().remove(e.getSprite());
             enemyManager.getEnemies().remove(e);
         }
+        if (enemyManager.getEnemies().isEmpty()) {
+            displayVictoryMessage();
+            gameLoop.stop(); // Para o loop do jogo
+        }
 
         enemyManager.update(GameConfig.WINDOW_WIDTH);
+    }
+    private void displayVictoryMessage() {
+        Text victoryText = new Text("Você venceu!");
+        victoryText.setFill(Color.LIMEGREEN);
+        victoryText.setStroke(Color.WHITE);
+        victoryText.setStrokeWidth(1);
+        try {
+            victoryText.setFont(Font.loadFont(getClass().getResourceAsStream("/assets/PressStart2P-Regular.ttf"), 48));
+        } catch (Exception e) {
+            victoryText.setFont(Font.font("Consolas", 48));
+        }
+
+        victoryText.setX((GameConfig.WINDOW_WIDTH - victoryText.getLayoutBounds().getWidth()) / 2);
+        victoryText.setY(GameConfig.WINDOW_HEIGHT / 2.0);
+
+        root.getChildren().add(victoryText);
     }
 
     public static void main(String[] args) {
