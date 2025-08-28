@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.effect.GaussianBlur;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +32,14 @@ public class GameWindow extends Application {
     private long shootCooldown = 300_000_000;
 
     private AnimationTimer gameLoop;
+    private ImageView backgroundView;
 
     @Override
     public void start(Stage primaryStage) {
         root = new Pane();
         scene = new Scene(root, GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
         Image backgroundImage = new Image(getClass().getResourceAsStream("/assets/stars_black_background.png"));
-        ImageView backgroundView = new ImageView(backgroundImage);
+        backgroundView = new ImageView(backgroundImage);
 
         backgroundView.setFitWidth(GameConfig.WINDOW_WIDTH);
         backgroundView.setFitHeight(GameConfig.WINDOW_HEIGHT);
@@ -132,7 +134,13 @@ public class GameWindow extends Application {
 
         enemyManager.update(GameConfig.WINDOW_WIDTH);
     }
+
     private void displayVictoryMessage() {
+        GaussianBlur blurEffect = new GaussianBlur(10);
+        for (javafx.scene.Node node : root.getChildren()) {
+            node.setEffect(blurEffect);
+        }
+
         Text victoryText = new Text("Você venceu!");
         victoryText.setFill(Color.LIMEGREEN);
         victoryText.setStroke(Color.WHITE);
