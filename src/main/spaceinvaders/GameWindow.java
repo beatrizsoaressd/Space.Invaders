@@ -2,6 +2,7 @@ package spaceinvaders;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.animation.AnimationTimer;
@@ -163,7 +164,7 @@ public class GameWindow extends Application {
         enemyManager.update(GameConfig.WINDOW_WIDTH);
 
         for (Enemy e : enemyManager.getEnemies()) {
-            if (e.getY() + e.getHeight() >= player.getY()) {
+            if (e.getBounds().intersects(player.getSprite().getBoundsInParent())) {
                 displayEndMessage(false);
                 gameLoop.stop();
                 return;
@@ -181,7 +182,7 @@ public class GameWindow extends Application {
 
         Text endText = new Text(msg);
         endText.setFill(color);
-        endText.setStroke(Color.WHITE);
+        endText.setStroke(Color.BLACK);
         endText.setStrokeWidth(1);
         try {
             endText.setFont(Font.loadFont(getClass().getResourceAsStream("/assets/PressStart2P-Regular.ttf"), 48));
@@ -189,8 +190,48 @@ public class GameWindow extends Application {
             endText.setFont(Font.font("Consolas", 48));
         }
         endText.setX((GameConfig.WINDOW_WIDTH - endText.getLayoutBounds().getWidth()) / 2);
-        endText.setY(GameConfig.WINDOW_HEIGHT / 2.0);
-        root.getChildren().add(endText);
+        endText.setY(GameConfig.WINDOW_HEIGHT / 2.0 - 50);
+
+        Button backButton = new Button("MENU");
+        backButton.setFont(Font.font("Press Start 2P", 16)); // usa a mesma fonte pixelada
+        backButton.setStyle(
+                "-fx-background-color: black;" +
+                        "-fx-text-fill: limegreen;" +
+                        "-fx-border-color: limegreen;" +
+                        "-fx-border-width: 2px;"
+        );
+        backButton.setOnMouseEntered(e -> backButton.setStyle(
+                "-fx-background-color: limegreen;" +
+                        "-fx-text-fill: black;" +
+                        "-fx-border-color: limegreen;" +
+                        "-fx-border-width: 2px;"
+        ));
+        backButton.setOnMouseExited(e -> backButton.setStyle(
+                "-fx-background-color: black;" +
+                        "-fx-text-fill: limegreen;" +
+                        "-fx-border-color: limegreen;" +
+                        "-fx-border-width: 2px;"
+        ));
+        backButton.setPrefWidth(220);
+        backButton.setPrefHeight(40);
+
+        backButton.setLayoutX((GameConfig.WINDOW_WIDTH - 220) / 2.0);
+        backButton.setLayoutY(GameConfig.WINDOW_HEIGHT / 2.0 + 30);
+
+        backButton.setOnAction(e -> {
+            goToMenu();
+        });
+        root.getChildren().addAll(endText, backButton);
+    }
+
+    private void goToMenu() {
+        try {
+            Stage stage = (Stage) scene.getWindow();
+            MenuWindow menu = new MenuWindow();
+            menu.start(stage);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 

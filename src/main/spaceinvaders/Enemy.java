@@ -60,10 +60,6 @@ public void nextFrame() {
         sprite.setTranslateY(sprite.getTranslateY() + 20);
     }
 
-    public double getWidth() {
-        return sprite.getFitWidth();
-    }
-
     public double getX() {
         return sprite.getTranslateX();
     }
@@ -72,7 +68,17 @@ public void nextFrame() {
         return sprite.getTranslateY();
     }
 
-    public double getHeight() {
-        return sprite.getImage().getHeight();
+    public double getWidth() {
+        return sprite.getBoundsInParent().getWidth();
     }
+
+    public double getHeight() {
+        return sprite.getBoundsInParent().getHeight();
+    }
+
+    public javafx.geometry.Bounds getBounds() {
+        return sprite.getBoundsInParent();
+    }
+
+
 }
