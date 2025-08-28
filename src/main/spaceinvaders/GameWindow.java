@@ -25,6 +25,9 @@ public class GameWindow extends Application {
     private Player player;
     private EnemyManager enemyManager;
     private final List<Bullet> bullets = new ArrayList<>();
+    private Text hudScore;
+    private Text hudWave;
+    private int currentWave = 1;
 
     private boolean movingLeft = false;
     private boolean movingRight = false;
@@ -94,6 +97,20 @@ public class GameWindow extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
 
+        //HUD: pontuação
+        hudScore = new Text("PONTUAÇÃO: " + GameConfig.score);
+        hudWave  = new Text("WAVE: " + currentWave);
+        hudScore.setFill(Color.WHITE);
+        hudWave.setFill(Color.WHITE);
+        hudScore.setFont(Font.font(20));
+        hudWave.setFont(Font.font(20));
+        hudScore.setTranslateX(20);
+        hudScore.setTranslateY(30);
+        hudWave.setTranslateX(GameConfig.WINDOW_WIDTH - 100);
+        hudWave.setTranslateY(30);
+
+        root.getChildren().addAll(hudScore, hudWave);
+
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -102,6 +119,8 @@ public class GameWindow extends Application {
         };
         gameLoop.start();
     }
+
+    //detecção de colisões, eliminação de inimigos
     private void update() {
         if (movingLeft) player.moveLeft();
         if (movingRight) player.moveRight();
@@ -126,36 +145,54 @@ public class GameWindow extends Application {
         for (Enemy e : enemiesToRemove) {
             root.getChildren().remove(e.getSprite());
             enemyManager.getEnemies().remove(e);
+            GameConfig.addScore(GameConfig.SCORE_PER_ENEMY);
+            hudScore.setText("PONTUAÇÃO: " + GameConfig.score);
         }
+
         if (enemyManager.getEnemies().isEmpty()) {
-            displayVictoryMessage();
-            gameLoop.stop(); // Para o loop do jogo
+            if (currentWave >= 5) {
+                displayEndMessage(true);
+                gameLoop.stop();
+                return;
+            }
+            currentWave++;
+            enemyManager.nextWave();
+            hudWave.setText("WAVE: " + currentWave);
         }
 
         enemyManager.update(GameConfig.WINDOW_WIDTH);
+
+        for (Enemy e : enemyManager.getEnemies()) {
+            if (e.getY() + e.getHeight() >= player.getY()) {
+                displayEndMessage(false);
+                gameLoop.stop();
+                return;
+            }
+        }
     }
 
-    private void displayVictoryMessage() {
+    private void displayEndMessage(boolean victory) {
         GaussianBlur blurEffect = new GaussianBlur(10);
         for (javafx.scene.Node node : root.getChildren()) {
             node.setEffect(blurEffect);
         }
+        String msg = victory ? "VOCÊ VENCEU!" : "VOCÊ PERDEU!";
+        Color color = victory ? Color.LIMEGREEN : Color.RED;
 
-        Text victoryText = new Text("Você venceu!");
-        victoryText.setFill(Color.LIMEGREEN);
-        victoryText.setStroke(Color.WHITE);
-        victoryText.setStrokeWidth(1);
+        Text endText = new Text(msg);
+        endText.setFill(color);
+        endText.setStroke(Color.WHITE);
+        endText.setStrokeWidth(1);
         try {
-            victoryText.setFont(Font.loadFont(getClass().getResourceAsStream("/assets/PressStart2P-Regular.ttf"), 48));
+            endText.setFont(Font.loadFont(getClass().getResourceAsStream("/assets/PressStart2P-Regular.ttf"), 48));
         } catch (Exception e) {
-            victoryText.setFont(Font.font("Consolas", 48));
+            endText.setFont(Font.font("Consolas", 48));
         }
-
-        victoryText.setX((GameConfig.WINDOW_WIDTH - victoryText.getLayoutBounds().getWidth()) / 2);
-        victoryText.setY(GameConfig.WINDOW_HEIGHT / 2.0);
-
-        root.getChildren().add(victoryText);
+        endText.setX((GameConfig.WINDOW_WIDTH - endText.getLayoutBounds().getWidth()) / 2);
+        endText.setY(GameConfig.WINDOW_HEIGHT / 2.0);
+        root.getChildren().add(endText);
     }
+
 
     public static void main(String[] args) {
         launch(args);

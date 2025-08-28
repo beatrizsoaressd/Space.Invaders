@@ -63,12 +63,16 @@ public void nextFrame() {
     public double getWidth() {
         return sprite.getFitWidth();
     }
-    public double getX() {
 
+    public double getX() {
         return sprite.getTranslateX();
     }
-    public double getY() {
 
+    public double getY() {
         return sprite.getTranslateY();
+    }
+
+    public double getHeight() {
+        return sprite.getImage().getHeight();
     }
 }

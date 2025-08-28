@@ -34,7 +34,14 @@ public class GameConfig {
     public static final int GRID_V_SPACING = 18;
     public static final int GRID_MARGIN_TOP = 60;
     public static final int FRAME_DELAY = 16; // ~60 FPS
-    public static final int SCORE_PER_ENEMY = 30;
+    public static final int SCORE_PER_ENEMY = 10;
     public static final int INITIAL_SCORE = 0;
+    public static int score = INITIAL_SCORE;
+    public static void addScore(int value) {
+        score += value;
+    }
+    public static void resetScore() {
+        score = INITIAL_SCORE;
+    }
 
 }

@@ -52,4 +52,11 @@ public class Player {
         int projectileRow = 0;
         return new Bullet(bx, by, -8, projectileCol, projectileRow);
     }
+
+    public double getX() {
+        return sprite.getX();
+    }
+    public double getY() {
+        return sprite.getY();
+    }
 }

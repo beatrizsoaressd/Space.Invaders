@@ -12,27 +12,32 @@ public class EnemyManager {
     private List<Enemy> enemies = new ArrayList<>();
     private Pane root;
     private Timeline animation;
+    private  int currentWave = 1;
 
     public EnemyManager(Pane root) {
         this.root = root;
-        createEnemies();
+        createEnemies(currentWave);
         startAnimation();
     }
 
-    private void createEnemies() {
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 8; col++) {
+    private void createEnemies(int wave) {
+        int rows = 3 + (wave - 1);
+        int cols = 8;
+
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
                 double x = 80 + col * 50;
                 double y = 80 + row * 40;
 
                 int spriteCol = 0;
-                int spriteRow = row;
+                int spriteRow = row % 3;
 
                 Enemy enemy = new Enemy(x, y, spriteCol, spriteRow);
                 enemies.add(enemy);
                 root.getChildren().add(enemy.getSprite());
             }
         }
+
     }
 
     private void startAnimation() {
@@ -65,6 +70,19 @@ public class EnemyManager {
     public List<Enemy> getEnemies() {
 
         return enemies;
+    }
+
+    public void nextWave() {
+        currentWave++;
+        for(Enemy e : enemies) {
+            root.getChildren().remove(e.getSprite());
+        }
+        enemies.clear();
+        createEnemies(currentWave);
+    }
+
+    public int getCurrentWave() {
+        return currentWave;
     }
 }
 
