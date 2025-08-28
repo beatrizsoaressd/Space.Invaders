@@ -15,6 +15,7 @@ import javafx.scene.effect.GaussianBlur;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GameWindow extends Application {
 
@@ -23,23 +24,22 @@ public class GameWindow extends Application {
 
     private Player player;
     private EnemyManager enemyManager;
-    private List<Bullet> bullets = new ArrayList<>();
+    private final List<Bullet> bullets = new ArrayList<>();
 
     private boolean movingLeft = false;
     private boolean movingRight = false;
 
     private long lastShotTime = 0;
-    private long shootCooldown = 300_000_000;
+    private final long shootCooldown = 300_000_000;
 
     private AnimationTimer gameLoop;
-    private ImageView backgroundView;
 
     @Override
     public void start(Stage primaryStage) {
         root = new Pane();
         scene = new Scene(root, GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
-        Image backgroundImage = new Image(getClass().getResourceAsStream("/assets/stars_black_background.png"));
-        backgroundView = new ImageView(backgroundImage);
+        Image backgroundImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/stars_black_background.png")));
+        ImageView backgroundView = new ImageView(backgroundImage);
 
         backgroundView.setFitWidth(GameConfig.WINDOW_WIDTH);
         backgroundView.setFitHeight(GameConfig.WINDOW_HEIGHT);
