@@ -226,6 +226,7 @@ public class GameWindow extends Application {
 
     private void goToMenu() {
         try {
+            GameConfig.score = 0;
             Stage stage = (Stage) scene.getWindow();
             MenuWindow menu = new MenuWindow();
             menu.start(stage);
