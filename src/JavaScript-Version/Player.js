@@ -30,4 +30,9 @@ class Player {
         if (this.x < 0) this.x = 0;
         if (this.x > this.game.width - this.width) this.x = this.game.width - this.width;
     }
+    shoot() {
+            const bulletX = this.x + this.width / 2 - 3; // 3 é metade da largura do tiro (6/2)
+            return new Bullet(this.game, bulletX, this.y);
+    }
+
 }

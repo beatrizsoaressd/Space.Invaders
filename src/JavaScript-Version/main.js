@@ -7,12 +7,12 @@ window.addEventListener('load', function(){
     const game = new Game(canvas);
 
     //o Game Loop
-    function animate() {
-        game.update();
+    function animate(timestamp) {
+        game.update(timestamp);
         game.draw();
 
         requestAnimationFrame(animate);
     }
 
-    animate();
+    animate(0);
 });
