@@ -1,0 +1,19 @@
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #111;
+}
+
+canvas {
+    background-image: url('assets/stars_black_background.png');
+    background-size: cover;
+    border: 1px solid white;
+}

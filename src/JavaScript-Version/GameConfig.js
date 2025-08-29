@@ -1,0 +1,7 @@
+const GameConfig = {
+    WINDOW_WIDTH: 800,
+    WINDOW_HEIGHT: 600,
+    PLAYER_SPEED: 3,
+    INITIAL_LIVES: 3,
+    SCORE_PER_ENEMY: 10
+};
