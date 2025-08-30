@@ -16,10 +16,16 @@ class Enemy {
         this.spriteHeight = 36;
 
         //controle da animação
-        this.maxFrames = 2;
+        this.maxFrames = 1;
         this.frameTimer = 0;
-        this.frameInterval = 400;
+        this.frameInterval = 100;
         this.currentFrame = 0;
+
+        this.image.onload = () => {
+            const cols = Math.floor(this.image.width / this.spriteWidth);
+            const rows = Math.floor(this.image.height / this.spriteHeight);
+            this.maxFrames = Math.max(1, cols);
+        }
 
         this.markedForDeletion = false;
     }

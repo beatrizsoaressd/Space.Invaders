@@ -83,6 +83,10 @@ class EnemyManager {
   }
 
   update(deltaTime) {
+    for (const e of this.enemies) {
+        if (!e.markedForDeletion) e.update(deltaTime);
+    }
+
     this.stepTimer -= deltaTime;
     while (this.stepTimer <= 0) {
         this._stepOnce();
