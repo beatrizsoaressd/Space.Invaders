@@ -13,7 +13,7 @@ class EnemyManager {
 
     this.stepPixels = 6;
     this.dropPixels = 30;
-    this.baseStepTimeMs = 10;
+    this.baseStepTimeMs = 0.5;
     this.minStepTimeMs = 60;
     this.waveAccel = 0.18;
     this.scarcityBoostMax = 0.5;
