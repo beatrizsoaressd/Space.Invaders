@@ -6,10 +6,10 @@ class EnemyManager {
         this.lastSpawn = 0;
     }
 
-    update(deltaTime) {
-        if (Date.now() - this.lastSpawn > this.spawnInterval) {
+    update(timestamp) {
+        if (timestamp - this.lastSpawn > this.spawnInterval) {
             this.spawnEnemy();
-            this.lastSpawn = Date.now();
+            this.lastSpawn = timestamp;
         }
         this.enemies.forEach(enemy => enemy.update());
         this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);

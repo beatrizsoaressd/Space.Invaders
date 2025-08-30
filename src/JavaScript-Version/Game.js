@@ -29,7 +29,7 @@ class Game {
 
         this.bullets = this.bullets.filter(bullet => !bullet.markedForDeletion);
 
-        this.enemyManager.update();
+        this.enemyManager.update(timestamp);
     }
 
     draw() {
