@@ -10,7 +10,7 @@ class Enemy {
         this.image.src = 'assets/blue_alien_black_36x36.png';
         //controle da animação
         this.frameX = 0;
-        this.maxFrames = 5;
+        this.maxFrame = 5;
         this.fps = 6;
         this.frameTimer = 0;
         this.frameInterval = 1000 / this.fps;

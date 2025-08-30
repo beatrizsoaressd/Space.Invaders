@@ -18,22 +18,22 @@ class EnemyManager {
     }
 
     update(deltaTime) {
-    let reverse = false;
-    for (const enemy of this.enemies) {
-        enemy.x += this.speedX;
-        if (enemy.x <= 0 || enemy.x >= this.game.width - enemy.width) {
-           reverse = true;
-        }
-    }
-
-    if (reverse) {
-       this.speedX *= -1;
-       for (const enemy of this.enemies) {
-           enemy.y += 20;
+        let reverse = false;
+        for (const enemy of this.enemies) {
+            enemy.x += this.speedX;
+            if (enemy.x <= 0 || enemy.x >= this.game.width - enemy.width) {
+                reverse = true;
             }
-       }
-    this.enemies.forEach(enemy => enemy.update(deltaTime));
-    this.enemies = this.enemies.filter(e => !e.markedForDeletion);
+        }
+
+        if (reverse) {
+           this.speedX *= -1;
+           for (const enemy of this.enemies) {
+               enemy.y += 20;
+                }
+           }
+        this.enemies.forEach(enemy => enemy.update(deltaTime));
+        this.enemies = this.enemies.filter(e => !e.markedForDeletion);
     }
 
   draw(context) {
