@@ -11,6 +11,8 @@ class Game {
         this.bullets = [];
         this.shootCooldown = 300;
         this.lastShotTime = 0;
+
+        this.enemyManager = new EnemyManager(this);
     }
 
     update(timestamp) {
@@ -26,6 +28,8 @@ class Game {
         });
 
         this.bullets = this.bullets.filter(bullet => !bullet.markedForDeletion);
+
+        this.enemyManager.update();
     }
 
     draw() {
@@ -35,5 +39,7 @@ class Game {
         this.bullets.forEach(bullet => {
         bullet.draw(this.context);
         });
+
+        this.enemyManager.draw(this.context);
     }
 }
