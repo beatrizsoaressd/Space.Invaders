@@ -5,10 +5,13 @@ window.addEventListener('load', function(){
     canvas.height = GameConfig.WINDOW_HEIGHT;
 
     const game = new Game(canvas);
+    let lastTime = 0;
 
     //o Game Loop
     function animate(timestamp) {
-        game.update(timestamp);
+        const deltaTime = timestamp - lastTime;
+        lastTime = timestamp;
+        game.update(deltaTime);
         game.draw();
 
         requestAnimationFrame(animate);

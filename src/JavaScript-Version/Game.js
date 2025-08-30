@@ -15,21 +15,23 @@ class Game {
         this.enemyManager = new EnemyManager(this);
     }
 
-    update(timestamp) {
+    update(deltaTime) {
         this.player.update(this.input);
 
-        if (this.input.keys.includes('Space') && (timestamp - this.lastShotTime > this.shootCooldown)) {
-            this.bullets.push(this.player.shoot());
-            this.lastShotTime = timestamp; //reseta o tempo do último tiro
+        if (this.shootTimer == null) this.shootTimer = 0;
+        this.shootTimer -= deltaTime;
+
+        const pressedSpace = this.input.keys.includes('Space') || this.input.keys.includes(' ');
+        if (pressedSpace && this.shootTimer <= 0) {
+            const shot = this.player.shoot();
+            if (shot) this.bullets.push(shot);
+            this.shootTimer = this.shootCooldown;
         }
 
-        this.bullets.forEach(bullet => {
-                    bullet.update();
-        });
-
+        this.bullets.forEach(bullet => bullet.update(deltaTime));
         this.bullets = this.bullets.filter(bullet => !bullet.markedForDeletion);
 
-        this.enemyManager.update(timestamp);
+        this.enemyManager.update(deltaTime);
     }
 
     draw() {

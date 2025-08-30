@@ -3,21 +3,16 @@ class InputHandler {
         this.keys = []; //guarda as teclas pressionadas
 
         window.addEventListener('keydown', (e) => {
-            if ((e.code === 'ArrowLeft' ||
-                 e.code === 'ArrowRight' ||
-                 e.code === 'KeyA' ||
-                 e.code === 'KeyD' ||
-                 e.code === 'Space')
-                 && !this.keys.includes(e.code)) {
-                this.keys.push(e.code);
-            }
+            if ([' ', 'Space', 'Spacebar', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.code) ||
+                [' ', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+                    e.preventDefault();
+                }
+            if (!this.keys.includes(e.code)) this.keys.push(e.code);
+            if (!this.keys.includes(e.key))  this.keys.push(e.key);
         });
 
         window.addEventListener('keyup', (e) => {
-            const index = this.keys.indexOf(e.code);
-            if (index > -1) {
-                this.keys.splice(index, 1);
-            }
+            this.keys = this.keys.filter(k => k !== e.code && k !== e.key);
         });
     }
 }
