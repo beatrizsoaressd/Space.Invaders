@@ -11,7 +11,7 @@ window.addEventListener('load', function(){
     function animate(timestamp) {
         const deltaTime = timestamp - lastTime;
         lastTime = timestamp;
-        game.update(deltaTime);
+        game.update(timestamp, deltaTime);
         game.draw();
 
         requestAnimationFrame(animate);
