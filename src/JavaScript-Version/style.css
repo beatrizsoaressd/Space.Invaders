@@ -1,4 +1,9 @@
-{
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url('assets/PressStart2P-Regular.ttf');
+}
+
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -10,10 +15,51 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #111;
+    font-family: "Press Start 2P", Consolas, sans-serif;
 }
 
 canvas {
     background-image: url('assets/stars_black_background.png');
     background-size: cover;
     border: 1px solid white;
+}
+
+.hidden{
+    display: none !important;
+}
+
+#menu{
+    display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        background-image: url('assets/background_space.png');
+        background-size: cover;
+        width: 800px;
+        height: 600px;
+        padding: 50px;
+        border: 1px solid white;
+}
+
+#menu h1 {
+    color: white;
+    font-size: 42px;
+    text-shadow: 2px 2px 0px limegreen;
+}
+
+#menu button {
+    font-family: inherit;
+    font-size: 16px;
+    width: 220px;
+    height: 40px;
+    background-color: black;
+    color: limegreen;
+    border: 2px solid limegreen;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#menu button:hover {
+    background-color: limegreen;
+    color: black;
 }

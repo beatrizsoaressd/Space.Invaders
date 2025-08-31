@@ -39,4 +39,8 @@ class EnemyManager {
   draw(context) {
     this.enemies.forEach(enemy => enemy.draw(context));
   }
+  nextWave(waveNumber) {
+      const rows = 3 + (waveNumber - 1);
+      this.createEnemies(rows, 8);
+  }
 }

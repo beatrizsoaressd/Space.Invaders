@@ -6,16 +6,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="gameCanvas"></canvas>
+    <div id="menu">
+        <h1>SPACE INVADERS</h1>
+        <button id="startButton">INICIAR</button>
+    </div>
+    <canvas id="gameCanvas" class="hidden"></canvas>
 
     <script src="GameConfig.js" defer></script>
-    <script src="Player.js" defer></script>
     <script src="InputHandler.js" defer></script>
+    <script src="Player.js" defer></script>
     <script src="Bullet.js" defer></script>
     <script src="Enemy.js" defer></script>
     <script src="EnemyManager.js" defer></script>
     <script src="Game.js" defer></script>
     <script src="main.js" defer></script>
-
 </body>
 </html>
