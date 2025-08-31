@@ -36,6 +36,7 @@ class Game {
 
         //condição de Vitória
         if (this.enemyManager.enemies.length === 0) {
+            this.bullets = [];
             if (this.currentWave >= 5) {
                 this.gameState = this.GAMESTATE.VICTORY;
             } else {
