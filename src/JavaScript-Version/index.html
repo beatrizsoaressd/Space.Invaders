@@ -9,6 +9,8 @@
     <div id="menu">
         <h1>SPACE INVADERS</h1>
         <button id="startButton">INICIAR</button>
+        <button id="tutorialButton">COMO JOGAR</button>
+        <button id="exitButton">SAIR</button>
     </div>
     <canvas id="gameCanvas" class="hidden"></canvas>
 
@@ -20,5 +22,15 @@
     <script src="EnemyManager.js" defer></script>
     <script src="Game.js" defer></script>
     <script src="main.js" defer></script>
+
+    <div id="tutorialOverlay" class="hidden">
+        <div id="tutorialContent">
+            <button id="closeTutorial">X</button>
+            <h2>TUTORIAL</h2>
+            <p>TECLAS A/D OU SETAS (← →):<br>MOVER A NAVE</p>
+            <p>BARRA DE ESPAÇO:<br>ATIRAR</p>
+            <p>OBJETIVO:<br>DERROTE TODOS OS INIMIGOS ANTES QUE CHEGUEM ATÉ VOCÊ!</p>
+        </div>
+    </div>
 </body>
 </html>
