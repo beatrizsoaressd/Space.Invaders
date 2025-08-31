@@ -3,6 +3,11 @@ window.addEventListener('load', function(){
     const menuScreen = document.getElementById('menu');
     const gameCanvas = document.getElementById('gameCanvas');
     const startButton = document.getElementById('startButton');
+    const tutorialButton = document.getElementById('tutorialButton');
+    const exitButton = document.getElementById('exitButton');
+
+    const tutorialOverlay = document.getElementById('tutorialOverlay');
+    const closeTutorialButton = document.getElementById('closeTutorial');
 
     let game = null;
     let animationFrameId = null;
@@ -16,7 +21,6 @@ window.addEventListener('load', function(){
         game = new Game(gameCanvas, goToMenu);
         let lastTime = 0;
 
-        //Game Loop
         function animate(timestamp) {
             const deltaTime = timestamp - lastTime;
             lastTime = timestamp;
@@ -36,4 +40,22 @@ window.addEventListener('load', function(){
        }
 
        startButton.addEventListener('click', startGame);
+       tutorialButton.addEventListener('click', () => {
+           tutorialOverlay.classList.remove('hidden');
+           });
+       //lógica para o botão 'X'
+           closeTutorialButton.addEventListener('click', () => {
+               tutorialOverlay.classList.add('hidden');
+           });
+
+       tutorialOverlay.addEventListener('click', (event) => {
+               if (event.target === tutorialOverlay) {
+                   tutorialOverlay.classList.add('hidden');
+               }
+       });
+       exitButton.addEventListener('click', () => {
+               /*botao de sair feito somente para fins de idêntica aparência ao código do java,
+               explicaremos o motivo no README */
+               alert("Ação 'SAIR' desativada no navegador.");
+           });
    });
